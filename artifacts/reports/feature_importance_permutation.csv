@@ -1,0 +1,14 @@
+feature,importance,std,label,method
+ca,0.08549783549783556,0.018447011232422074,Number of major vessels (0–3),permutation_importance
+cp,0.05541125541125546,0.029155771844991754,Chest pain type,permutation_importance
+oldpeak,0.03636363636363641,0.019346985006746736,ST depression (exercise vs rest),permutation_importance
+sex,0.0304473304473305,0.014880416711684585,"Sex (1=male, 0=female)",permutation_importance
+thal,0.026046176046176095,0.03301005761153285,Thalassemia status,permutation_importance
+thalach,0.023160173160173225,0.019915772494196446,Max heart rate achieved,permutation_importance
+age,0.021789321789321848,0.007712299374639447,Age (years),permutation_importance
+slope,0.017027417027417096,0.011138718723757487,Slope of peak exercise ST segment,permutation_importance
+exang,0.010750360750360807,0.010285877856967818,Exercise-induced angina,permutation_importance
+trestbps,0.0044733044733045405,0.009735181188987219,Resting blood pressure (mm Hg),permutation_importance
+fbs,0.001875901875901905,0.0019143577433508505,Fasting blood sugar > 120 mg/dl,permutation_importance
+restecg,-0.0012987012987012363,0.005715815965465598,Resting ECG results,permutation_importance
+chol,-0.011399711399711328,0.013412153103865235,Serum cholesterol (mg/dl),permutation_importance

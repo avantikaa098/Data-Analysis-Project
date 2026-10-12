@@ -1,0 +1,175 @@
+{
+  "native": [
+    {
+      "feature": "cp",
+      "importance": 0.16308927871727333,
+      "label": "Chest pain type",
+      "method": "tree_feature_importances"
+    },
+    {
+      "feature": "oldpeak",
+      "importance": 0.11245585142085293,
+      "label": "ST depression (exercise vs rest)",
+      "method": "tree_feature_importances"
+    },
+    {
+      "feature": "thalach",
+      "importance": 0.11244775683949516,
+      "label": "Max heart rate achieved",
+      "method": "tree_feature_importances"
+    },
+    {
+      "feature": "thal",
+      "importance": 0.11008989371161282,
+      "label": "Thalassemia status",
+      "method": "tree_feature_importances"
+    },
+    {
+      "feature": "ca",
+      "importance": 0.08962407054152519,
+      "label": "Number of major vessels (0\u20133)",
+      "method": "tree_feature_importances"
+    },
+    {
+      "feature": "chol",
+      "importance": 0.08665547334697343,
+      "label": "Serum cholesterol (mg/dl)",
+      "method": "tree_feature_importances"
+    },
+    {
+      "feature": "age",
+      "importance": 0.08090798676046602,
+      "label": "Age (years)",
+      "method": "tree_feature_importances"
+    },
+    {
+      "feature": "trestbps",
+      "importance": 0.07297271243372035,
+      "label": "Resting blood pressure (mm Hg)",
+      "method": "tree_feature_importances"
+    },
+    {
+      "feature": "exang",
+      "importance": 0.06329293209625252,
+      "label": "Exercise-induced angina",
+      "method": "tree_feature_importances"
+    },
+    {
+      "feature": "slope",
+      "importance": 0.048332958108405426,
+      "label": "Slope of peak exercise ST segment",
+      "method": "tree_feature_importances"
+    },
+    {
+      "feature": "sex",
+      "importance": 0.031390401860571904,
+      "label": "Sex (1=male, 0=female)",
+      "method": "tree_feature_importances"
+    },
+    {
+      "feature": "restecg",
+      "importance": 0.02053993239536473,
+      "label": "Resting ECG results",
+      "method": "tree_feature_importances"
+    },
+    {
+      "feature": "fbs",
+      "importance": 0.008200751767486214,
+      "label": "Fasting blood sugar > 120 mg/dl",
+      "method": "tree_feature_importances"
+    }
+  ],
+  "permutation": [
+    {
+      "feature": "ca",
+      "importance": 0.08549783549783556,
+      "std": 0.018447011232422074,
+      "label": "Number of major vessels (0\u20133)",
+      "method": "permutation_importance"
+    },
+    {
+      "feature": "cp",
+      "importance": 0.05541125541125546,
+      "std": 0.029155771844991754,
+      "label": "Chest pain type",
+      "method": "permutation_importance"
+    },
+    {
+      "feature": "oldpeak",
+      "importance": 0.03636363636363641,
+      "std": 0.019346985006746736,
+      "label": "ST depression (exercise vs rest)",
+      "method": "permutation_importance"
+    },
+    {
+      "feature": "sex",
+      "importance": 0.0304473304473305,
+      "std": 0.014880416711684585,
+      "label": "Sex (1=male, 0=female)",
+      "method": "permutation_importance"
+    },
+    {
+      "feature": "thal",
+      "importance": 0.026046176046176095,
+      "std": 0.03301005761153285,
+      "label": "Thalassemia status",
+      "method": "permutation_importance"
+    },
+    {
+      "feature": "thalach",
+      "importance": 0.023160173160173225,
+      "std": 0.019915772494196446,
+      "label": "Max heart rate achieved",
+      "method": "permutation_importance"
+    },
+    {
+      "feature": "age",
+      "importance": 0.021789321789321848,
+      "std": 0.007712299374639447,
+      "label": "Age (years)",
+      "method": "permutation_importance"
+    },
+    {
+      "feature": "slope",
+      "importance": 0.017027417027417096,
+      "std": 0.011138718723757487,
+      "label": "Slope of peak exercise ST segment",
+      "method": "permutation_importance"
+    },
+    {
+      "feature": "exang",
+      "importance": 0.010750360750360807,
+      "std": 0.010285877856967818,
+      "label": "Exercise-induced angina",
+      "method": "permutation_importance"
+    },
+    {
+      "feature": "trestbps",
+      "importance": 0.0044733044733045405,
+      "std": 0.009735181188987219,
+      "label": "Resting blood pressure (mm Hg)",
+      "method": "permutation_importance"
+    },
+    {
+      "feature": "fbs",
+      "importance": 0.001875901875901905,
+      "std": 0.0019143577433508505,
+      "label": "Fasting blood sugar > 120 mg/dl",
+      "method": "permutation_importance"
+    },
+    {
+      "feature": "restecg",
+      "importance": -0.0012987012987012363,
+      "std": 0.005715815965465598,
+      "label": "Resting ECG results",
+      "method": "permutation_importance"
+    },
+    {
+      "feature": "chol",
+      "importance": -0.011399711399711328,
+      "std": 0.013412153103865235,
+      "label": "Serum cholesterol (mg/dl)",
+      "method": "permutation_importance"
+    }
+  ]
+}

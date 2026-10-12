@@ -1,0 +1,26 @@
+{
+  "disclaimer": "Educational / research demonstration only. This system estimates statistical risk patterns from a public dataset and is NOT a medical diagnosis, clinical decision tool, or substitute for professional healthcare advice.",
+  "best_model": "Random Forest",
+  "comparison": {
+    "Random Forest": {
+      "accuracy": 0.8032786885245902,
+      "f1": 0.8333333333333334,
+      "roc_auc": 0.9036796536796537
+    },
+    "SVM (RBF)": {
+      "accuracy": 0.8360655737704918,
+      "f1": 0.8611111111111112,
+      "roc_auc": 0.8809523809523809
+    },
+    "Gradient Boosting": {
+      "accuracy": 0.819672131147541,
+      "f1": 0.8405797101449275,
+      "roc_auc": 0.8690476190476191
+    },
+    "Logistic Regression": {
+      "accuracy": 0.7868852459016393,
+      "f1": 0.8169014084507042,
+      "roc_auc": 0.8647186147186148
+    }
+  }
+}

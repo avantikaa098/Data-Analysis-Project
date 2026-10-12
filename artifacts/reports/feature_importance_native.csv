@@ -1,0 +1,14 @@
+feature,importance,label,method
+cp,0.16308927871727333,Chest pain type,tree_feature_importances
+oldpeak,0.11245585142085293,ST depression (exercise vs rest),tree_feature_importances
+thalach,0.11244775683949516,Max heart rate achieved,tree_feature_importances
+thal,0.11008989371161282,Thalassemia status,tree_feature_importances
+ca,0.08962407054152519,Number of major vessels (0–3),tree_feature_importances
+chol,0.08665547334697343,Serum cholesterol (mg/dl),tree_feature_importances
+age,0.08090798676046602,Age (years),tree_feature_importances
+trestbps,0.07297271243372035,Resting blood pressure (mm Hg),tree_feature_importances
+exang,0.06329293209625252,Exercise-induced angina,tree_feature_importances
+slope,0.048332958108405426,Slope of peak exercise ST segment,tree_feature_importances
+sex,0.031390401860571904,"Sex (1=male, 0=female)",tree_feature_importances
+restecg,0.02053993239536473,Resting ECG results,tree_feature_importances
+fbs,0.008200751767486214,Fasting blood sugar > 120 mg/dl,tree_feature_importances
