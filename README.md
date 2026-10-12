@@ -1,82 +1,118 @@
-# Heart Disease Risk Estimation (Educational ML Project)
+# CardioRisk Insight
 
-An educational machine learning system that estimates the **statistical likelihood** of a higher-risk heart disease pattern using a public dataset.
+**Educational machine learning prototype** that estimates cardiovascular risk patterns from a public dataset and presents results through a stakeholder-ready dashboard.
 
-> **Important:** This is a **research / educational prediction system**, not a medical diagnosis tool, clinical product, or substitute for professional healthcare advice.
+> **Important:** Research / education only. Not a medical diagnosis tool, clinical product, or substitute for professional healthcare advice.
 
-## What this project includes
+![Python](https://img.shields.io/badge/Python-3.10+-0B1F33)
+![Scikit-learn](https://img.shields.io/badge/Scikit--learn-ML-1F6F8B)
+![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-123A56)
+![License](https://img.shields.io/badge/License-MIT-486581)
 
-- Data cleaning and preprocessing
-- Exploratory data analysis (EDA)
-- Training multiple ML models (Logistic Regression, Random Forest, Gradient Boosting, SVM)
-- Model performance comparison (Accuracy, F1, ROC-AUC)
-- Feature influence explanations (native importances + permutation importance)
-- Interactive Streamlit dashboard
+## Why this project
 
-## Tech stack
+Built as an end-to-end analytics delivery sample for consulting-style interviews (e.g., Accenture):
 
-Python, Pandas, Scikit-learn, Matplotlib, Seaborn, Streamlit
+- Clear business framing and measurable outcomes
+- Reproducible ML pipeline (not just a notebook)
+- Multi-model comparison with cross-validation and tuning
+- Explainability for trust and audit conversations
+- Responsible AI boundaries stated up front
+
+## Business problem
+
+Providers and analytics teams need transparent ways to explore which structured indicators associate with higher-risk patterns. This prototype demonstrates how to turn raw tabular clinical-style data into an explainable scoring workflow for **education and research demos**.
+
+## Solution highlights
+
+| Capability | Implementation |
+|---|---|
+| Data preparation | Cleaning, type coercion, stratified split, leakage-safe pipeline |
+| EDA | Distribution, correlation, and class-balance visuals |
+| Modeling | Logistic Regression, Random Forest, Gradient Boosting, SVM |
+| Validation | Stratified 5-fold CV + grid search on ROC-AUC |
+| Selection | Hold-out ROC-AUC primary; Precision/Recall/F1/PR-AUC supporting |
+| Explainability | Native importances + permutation importance |
+| Demo layer | Streamlit executive dashboard |
+
+## Architecture
+
+```text
+Raw data → Cleaning/Preprocessing → EDA → CV + Tuning → Model selection
+        → Explainability → Streamlit dashboard
+```
+
+Details: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 
 ## Project structure
 
 ```text
 .
-├── app.py                 # Streamlit dashboard
-├── train.py               # End-to-end training pipeline
+├── app.py                 # Streamlit stakeholder dashboard
+├── train.py               # End-to-end training entrypoint
 ├── requirements.txt
 ├── data/
-│   ├── raw/               # Downloaded public dataset
-│   └── processed/         # Cleaned data
+│   ├── raw/
+│   └── processed/
 ├── artifacts/
-│   ├── figures/           # EDA + evaluation plots
-│   ├── models/            # Saved best model
-│   └── reports/           # Metrics & importance tables
-└── src/
-    ├── config.py
-    ├── data_loader.py
-    ├── preprocess.py
-    ├── eda.py
-    ├── train_models.py
-    └── feature_importance.py
+│   ├── figures/
+│   ├── models/
+│   └── reports/
+├── docs/
+│   ├── ARCHITECTURE.md
+│   ├── METHODOLOGY.md
+│   └── INTERVIEW_GUIDE.md
+├── src/
+│   ├── config.py
+│   ├── data_loader.py
+│   ├── preprocess.py
+│   ├── eda.py
+│   ├── train_models.py
+│   ├── feature_importance.py
+│   └── logging_utils.py
+└── tests/
+    └── test_preprocess.py
 ```
 
-## Setup
+## Quick start
 
 ```bash
 python -m venv .venv
 # Windows PowerShell
 .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-```
 
-## Train models
-
-```bash
+# Train + generate artifacts
 python train.py
-```
 
-This will:
-
-1. Download the public heart disease dataset
-2. Clean / preprocess the data
-3. Generate EDA figures
-4. Train and compare models
-5. Save the best model and feature-importance reports
-
-## Launch dashboard
-
-```bash
+# Launch dashboard
 streamlit run app.py
+
+# Run unit tests
+python -m pytest -q
 ```
 
-## Dataset
+## Key results
 
-Uses a publicly available UCI-derived heart disease dataset (educational mirror).  
-Target is encoded as a binary label for research-style classification:
+After training, open:
 
-- `0` = lower-risk pattern in the dataset
-- `1` = higher-risk pattern in the dataset
+- `artifacts/reports/model_comparison.csv`
+- `artifacts/reports/metrics.json`
+- `artifacts/reports/model_selection.md`
+- Dashboard tabs: **Executive Brief**, **Model Lab**, **Explainability**
+
+## Responsible AI
+
+- Explicit non-clinical scope and disclaimer on every major surface
+- Bias and dataset limitation callouts
+- Human-in-the-loop expectation for any real healthcare workflow
+- Recommendation path for monitoring, fairness audits, and validation
+
+## Interview materials
+
+- Methodology: [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md)
+- Accenture interview guide: [`docs/INTERVIEW_GUIDE.md`](docs/INTERVIEW_GUIDE.md)
 
 ## Disclaimer
 
-Outputs are statistical estimates learned from historical public data. They can be wrong, biased, or incomplete. Do **not** use them for diagnosis, treatment, triage, or any real-world medical decision.
+Outputs are statistical estimates from historical public data. They can be wrong, biased, or incomplete. Do **not** use them for diagnosis, treatment, triage, or any real-world medical decision.

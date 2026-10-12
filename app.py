@@ -1,7 +1,7 @@
 """
-Streamlit dashboard for the educational heart disease risk estimation project.
+CardioRisk Insight — Streamlit stakeholder dashboard.
 
-This application is for research / education only and is not a medical device.
+Educational / research prototype only. Not a medical device or diagnosis tool.
 """
 
 from __future__ import annotations
@@ -13,13 +13,66 @@ import joblib
 import pandas as pd
 import streamlit as st
 
-from src.config import DISCLAIMER, FEATURE_NAMES, FIGURES, MODELS, REPORTS
+from src.config import (
+    BUSINESS_CONTEXT,
+    DISCLAIMER,
+    FEATURE_NAMES,
+    FIGURES,
+    MODELS,
+    PROJECT_NAME,
+    PROJECT_TAGLINE,
+    REPORTS,
+    RESPONSIBLE_AI,
+)
 
 st.set_page_config(
-    page_title="Heart Risk Estimation (Educational)",
-    page_icon="🫀",
+    page_title=f"{PROJECT_NAME} | Educational ML Prototype",
+    page_icon="📊",
     layout="wide",
+    initial_sidebar_state="expanded",
 )
+
+CUSTOM_CSS = """
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@600&display=swap');
+
+html, body, [class*="css"] {
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+.block-container { padding-top: 1.2rem; max-width: 1200px; }
+.hero {
+  background: linear-gradient(135deg, #0B1F33 0%, #123A56 55%, #1F6F8B 100%);
+  color: #F4F7FA;
+  padding: 1.4rem 1.6rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.hero h1 {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 1.85rem;
+  margin: 0 0 0.35rem 0;
+  letter-spacing: -0.02em;
+}
+.hero p { margin: 0; opacity: 0.92; font-size: 0.98rem; }
+.kpi {
+  background: #F7FAFC;
+  border: 1px solid #D9E2EC;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+}
+.section-label {
+  color: #486581;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.stAlert { border-radius: 10px; }
+</style>
+"""
+st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
 
 @st.cache_resource
@@ -49,12 +102,12 @@ def show_image(path: Path, caption: str):
     if path.exists():
         st.image(str(path), caption=caption, use_container_width=True)
     else:
-        st.info(f"Missing figure: {path.name}. Run `python train.py` first.")
+        st.info(f"Missing figure: `{path.name}`. Run `python train.py` first.")
 
 
 def sidebar_inputs(feature_names: list[str]) -> dict:
-    st.sidebar.header("Sample inputs")
-    st.sidebar.caption("Adjust values to estimate a statistical risk score.")
+    st.sidebar.markdown("### Scenario inputs")
+    st.sidebar.caption("Simulate a structured clinical profile for educational scoring.")
 
     defaults = {
         "age": 55,
@@ -102,8 +155,16 @@ def sidebar_inputs(feature_names: list[str]) -> dict:
 
 
 def main():
-    st.title("Heart Disease Risk Estimation")
-    st.subheader("Educational machine learning demonstration")
+    st.markdown(
+        f"""
+        <div class="hero">
+          <div class="section-label">Analytics Prototype</div>
+          <h1>{PROJECT_NAME}</h1>
+          <p>{PROJECT_TAGLINE}</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
     st.warning(DISCLAIMER)
 
     bundle = load_bundle()
@@ -113,52 +174,64 @@ def main():
     importance = load_json(REPORTS / "feature_importance.json")
 
     if bundle is None:
-        st.error("No trained model found. Run `python train.py` from the project root, then refresh.")
-        st.code("python train.py\nstreamlit run app.py")
+        st.error("No trained model found. Run `python train.py`, then refresh this page.")
+        st.code("python train.py\nstreamlit run app.py", language="bash")
         return
 
     tabs = st.tabs(
         [
-            "Overview",
+            "Executive Brief",
             "Exploratory Analysis",
-            "Model Comparison",
-            "Feature Influence",
-            "Try a Prediction",
+            "Model Lab",
+            "Explainability",
+            "Scenario Simulator",
+            "Responsible AI",
         ]
     )
 
-    with tabs[0]:
-        st.markdown(
-            """
-            This project trains multiple classifiers on a **public heart disease dataset**
-            to estimate the likelihood of a higher-risk pattern in the data.
+    best_name = bundle.get("model_name", "N/A")
+    best_metrics = bundle.get("metrics", {})
 
-            **Pipeline**
-            1. Data cleaning & preprocessing  
-            2. Exploratory data analysis  
-            3. Train Logistic Regression, Random Forest, Gradient Boosting, and SVM  
-            4. Compare accuracy, F1, and ROC-AUC  
-            5. Explain influential features via model importances and permutation importance  
-            """
-        )
-        c1, c2, c3 = st.columns(3)
-        best_name = bundle.get("model_name", "N/A")
-        best_metrics = bundle.get("metrics", {})
+    with tabs[0]:
+        st.markdown("#### Business problem")
+        st.write(BUSINESS_CONTEXT["problem"])
+        st.markdown("#### Solution objective")
+        st.write(BUSINESS_CONTEXT["objective"])
+
+        c1, c2, c3, c4 = st.columns(4)
         c1.metric("Selected model", best_name)
         c2.metric("ROC-AUC", f"{best_metrics.get('roc_auc', 0):.3f}")
-        c3.metric("Accuracy", f"{best_metrics.get('accuracy', 0):.3f}")
+        c3.metric("Recall", f"{best_metrics.get('recall', 0):.3f}")
+        c4.metric("Precision", f"{best_metrics.get('precision', 0):.3f}")
+
+        st.markdown("#### Why this matters")
+        for item in BUSINESS_CONTEXT["value"]:
+            st.markdown(f"- {item}")
 
         if eda_summary:
-            st.write(
-                f"Dataset size after cleaning: **{eda_summary['n_rows']}** rows, "
-                f"**{eda_summary['n_features']}** features. "
-                f"Class balance: `{eda_summary['class_balance']}`."
+            st.markdown(
+                f"Cleaned dataset: **{eda_summary['n_rows']}** records, "
+                f"**{eda_summary['n_features']}** features, "
+                f"class balance `{eda_summary['class_balance']}`."
             )
+
+        rationale = bundle.get("selection_rationale") or (
+            metrics.get("selection_rationale") if metrics else None
+        )
+        if rationale:
+            st.info(rationale)
+
+        st.markdown("#### Delivery architecture")
+        st.code(
+            "Raw data → Cleaning/Preprocessing → EDA → CV + Tuning → "
+            "Model selection → Explainability → Streamlit dashboard",
+            language="text",
+        )
 
     with tabs[1]:
         left, right = st.columns(2)
         with left:
-            show_image(FIGURES / "target_distribution.png", "Target class counts")
+            show_image(FIGURES / "target_distribution.png", "Target class distribution")
             show_image(FIGURES / "age_by_target.png", "Age by class")
         with right:
             show_image(FIGURES / "correlation_heatmap.png", "Correlation heatmap")
@@ -166,21 +239,26 @@ def main():
         show_image(FIGURES / "feature_distributions.png", "Feature distributions")
 
     with tabs[2]:
+        st.markdown(
+            "Models were trained with stratified splits, **5-fold cross-validation**, "
+            "and lightweight **grid search** on ROC-AUC."
+        )
         if comparison is not None:
-            st.dataframe(comparison, use_container_width=True)
-        show_image(FIGURES / "model_comparison.png", "Metric comparison across models")
+            display = comparison.copy()
+            if display.columns[0] in {"Unnamed: 0", "index"}:
+                display = display.rename(columns={display.columns[0]: "model"})
+            st.dataframe(display, use_container_width=True)
+        show_image(FIGURES / "model_comparison.png", "Hold-out metric comparison")
         left, right = st.columns(2)
         with left:
             show_image(FIGURES / "roc_curves.png", "ROC curves")
         with right:
             show_image(FIGURES / "confusion_matrix_best.png", "Best-model confusion matrix")
-        if metrics:
-            st.json(metrics)
 
     with tabs[3]:
         st.markdown(
-            "Feature influence helps interpret **which inputs most affect predictions** "
-            "in this educational model. Higher bars mean stronger influence on the score."
+            "Explainability supports auditability: stakeholders can see which inputs "
+            "most influence the educational risk score."
         )
         left, right = st.columns(2)
         with left:
@@ -191,13 +269,12 @@ def main():
                 "Permutation importance (ROC-AUC)",
             )
         if importance and importance.get("permutation"):
-            st.subheader("Top features (permutation importance)")
             st.dataframe(pd.DataFrame(importance["permutation"]), use_container_width=True)
 
     with tabs[4]:
         st.info(
-            "The slider panel estimates a **probability-like risk score** from the trained "
-            "model. It does not diagnose disease and must not guide medical decisions."
+            "This simulator produces a statistical score for demonstration. "
+            "It must not be used for diagnosis, triage, or treatment decisions."
         )
         feature_names = bundle["feature_names"]
         values = sidebar_inputs(feature_names)
@@ -206,17 +283,35 @@ def main():
         proba = float(pipe.predict_proba(row)[0, 1])
         pred = int(pipe.predict(row)[0])
 
-        st.subheader("Estimated risk pattern")
+        st.markdown("#### Estimated risk pattern")
         st.progress(min(max(proba, 0.0), 1.0))
-        m1, m2 = st.columns(2)
+        m1, m2, m3 = st.columns(3)
         m1.metric("Model probability (class 1)", f"{proba:.1%}")
         m2.metric(
             "Predicted class",
             "Higher-risk pattern" if pred == 1 else "Lower-risk pattern",
         )
+        m3.metric("Model used", best_name)
         st.caption(DISCLAIMER)
-        with st.expander("Input values used"):
-            st.dataframe(row.T.rename(columns={0: "value"}), use_container_width=True)
+        with st.expander("Input vector"):
+            pretty = row.T.rename(columns={0: "value"})
+            pretty.index = [FEATURE_NAMES.get(i, i) for i in pretty.index]
+            st.dataframe(pretty, use_container_width=True)
+
+    with tabs[5]:
+        st.markdown("#### Guardrails for responsible use")
+        for item in RESPONSIBLE_AI:
+            st.markdown(f"- {item}")
+        st.markdown(
+            """
+            #### Interview-ready talking points
+            - Framed as an analytics prototype with explicit non-clinical scope
+            - Compared multiple algorithms with cross-validation and tuning
+            - Selected model using a clear primary metric (ROC-AUC) plus supporting metrics
+            - Added explainability for trust, audit, and stakeholder communication
+            - Packaged as a reproducible pipeline + dashboard for demo readiness
+            """
+        )
 
 
 if __name__ == "__main__":

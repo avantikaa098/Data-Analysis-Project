@@ -1,14 +1,14 @@
 feature,importance,std,label,method
-ca,0.08549783549783556,0.018447011232422074,Number of major vessels (0–3),permutation_importance
-cp,0.05541125541125546,0.029155771844991754,Chest pain type,permutation_importance
-oldpeak,0.03636363636363641,0.019346985006746736,ST depression (exercise vs rest),permutation_importance
-sex,0.0304473304473305,0.014880416711684585,"Sex (1=male, 0=female)",permutation_importance
-thal,0.026046176046176095,0.03301005761153285,Thalassemia status,permutation_importance
-thalach,0.023160173160173225,0.019915772494196446,Max heart rate achieved,permutation_importance
-age,0.021789321789321848,0.007712299374639447,Age (years),permutation_importance
-slope,0.017027417027417096,0.011138718723757487,Slope of peak exercise ST segment,permutation_importance
-exang,0.010750360750360807,0.010285877856967818,Exercise-induced angina,permutation_importance
-trestbps,0.0044733044733045405,0.009735181188987219,Resting blood pressure (mm Hg),permutation_importance
-fbs,0.001875901875901905,0.0019143577433508505,Fasting blood sugar > 120 mg/dl,permutation_importance
-restecg,-0.0012987012987012363,0.005715815965465598,Resting ECG results,permutation_importance
-chol,-0.011399711399711328,0.013412153103865235,Serum cholesterol (mg/dl),permutation_importance
+ca,0.07619047619047621,0.018576927308333584,Number of major vessels (0-3),permutation_importance
+cp,0.03997113997113999,0.02608042980314851,Chest pain type,permutation_importance
+thal,0.023737373737373755,0.03313047723578619,Thalassemia status,permutation_importance
+oldpeak,0.02337662337662339,0.018082771515669952,ST depression (exercise vs rest),permutation_importance
+sex,0.020634920634920666,0.012279085944880114,"Sex (1=male, 0=female)",permutation_importance
+thalach,0.014935064935064971,0.016376000276517533,Max heart rate achieved,permutation_importance
+age,0.012554112554112576,0.007000416289522168,Age (years),permutation_importance
+slope,0.007503607503607509,0.0088583130732856,Slope of peak exercise ST segment,permutation_importance
+exang,0.0051226551226551285,0.011982995377793163,Exercise-induced angina,permutation_importance
+fbs,-0.0004329004329004145,0.002157275092023973,Fasting blood sugar > 120 mg/dl,permutation_importance
+trestbps,-0.002380952380952365,0.006766738290154889,Resting blood pressure (mm Hg),permutation_importance
+restecg,-0.005916305916305905,0.005210813877422163,Resting ECG results,permutation_importance
+chol,-0.020851370851370846,0.012543326875671409,Serum cholesterol (mg/dl),permutation_importance

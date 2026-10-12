@@ -11,7 +11,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
-from src.config import DATA_PROCESSED, TARGET_COL
+from src.config import DATA_PROCESSED, RANDOM_STATE, TARGET_COL, TEST_SIZE
 
 
 EXPECTED_FEATURES = [
@@ -51,7 +51,6 @@ def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     if TARGET_COL not in data.columns:
         raise ValueError(f"Expected target column '{TARGET_COL}' in dataset.")
 
-    # Keep known features when present; otherwise use all non-target columns
     feature_cols = [c for c in EXPECTED_FEATURES if c in data.columns]
     if not feature_cols:
         feature_cols = [c for c in data.columns if c != TARGET_COL]
@@ -61,12 +60,10 @@ def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     for col in feature_cols:
         data[col] = pd.to_numeric(data[col], errors="coerce")
 
-    # Binary target: presence of disease (some sources use 0–4 severity)
     data[TARGET_COL] = pd.to_numeric(data[TARGET_COL], errors="coerce")
     data = data.dropna(subset=[TARGET_COL])
     data[TARGET_COL] = (data[TARGET_COL] > 0).astype(int)
 
-    # Drop rows that are almost entirely missing
     data = data.dropna(thresh=max(3, len(feature_cols) // 2))
     data = data.drop_duplicates().reset_index(drop=True)
     return data
@@ -87,8 +84,8 @@ def build_preprocessor(feature_names: list[str]) -> ColumnTransformer:
 
 def split_and_save(
     df: pd.DataFrame,
-    test_size: float = 0.2,
-    random_state: int = 42,
+    test_size: float = TEST_SIZE,
+    random_state: int = RANDOM_STATE,
 ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series, list[str]]:
     DATA_PROCESSED.mkdir(parents=True, exist_ok=True)
     cleaned = clean_dataframe(df)
